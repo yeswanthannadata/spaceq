@@ -1,0 +1,12 @@
+*.swp
+*.swo
+*.swn
+*.swm
+*.pyc
+ui/bower_components/*
+backend/spaceapp/migrations/*
+backend/venv/*
+node_modules/*
+ui/src/libs/*
+ui/src/app.css
+backend/api/migrations/*

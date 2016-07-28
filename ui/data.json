@@ -1,0 +1,13 @@
+{
+result: [
+{
+city: "Hyderabad",
+space: "Ikeva"
+},
+{
+city: "Bangalore",
+space: "Beehive"
+}
+],
+error: 0
+}

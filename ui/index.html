@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="spaceqApp">
+
+<style>
+
+.smallwidth{
+    width: 30px;
+    height: 30px;
+}
+
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Coworking Spaces India | Bangalore, Mumbai, Noida | Workspaces | Office Space</title>
+
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/basic.css" rel="stylesheet">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+
+</head>
+
+<body ng-cloak>
+    <div ng-include="'header.html'"></div>
+    <!--<h1 class="title">SPACEQ</h1>
+    <p class="caption">CURATING COWORKING SPACES IN INDIA</p>-->
+    <div class="container">
+      <div class="row" ng-controller="spaceqAppController as spaceCtrl">
+   <form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control" placeholder="Enter city or Coworking Space" ng-model="searchType">
+      </div>      
+    </div>
+  </form> 
+    <table class="table-fill" ng-cloak>
+    <thead>
+      <tr>
+        <th class="text-left" ng-cloak>
+	    <a href="#" ng-click="orderByField='space'; reverseSort = !reverseSort">
+    		Coworking Spaces<span ng-show="orderByField == 'space'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+            </a>
+	</th>
+        <th class="text-left">
+	   <a href="#" ng-click="orderByField='city'; reverseSort = !reverseSort">
+		City<span ng-show="orderByField == 'city'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+	   </a>
+	</th>
+      </tr>
+    </thead>
+    <tbody class="table-hover">
+      <tr ng-repeat="data_one in data_nodes | filter:searchType | orderBy:orderByField:reverseSort">
+        <td class="text-left" ng-cloak><img ng-class="{smallwidth: data_one.fav_icon != ''}"src="{{data_one.fav_icon}}">{{data_one.space}}</td>
+        <td class="text-left" ng-cloak>{{data_one.city}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    </div>
+
+    <script>
+      
+      var app = angular.module('spaceqApp',[]);
+      
+      app.controller('spaceqAppController', function($scope, $http) {
+	
+      var url = "http://spaceq.in:8123/api/city_spaces";
+
+	var name='yeswanth';
+	this.name = name;
+
+        $http.get(url).then(function(response){
+	  $scope.data_nodes = response.data
+	  //$scope.first  = response.data[0];
+	  //$scope.second = response.data[1];
+	})
+	});
+    </script>
+
+</body>
